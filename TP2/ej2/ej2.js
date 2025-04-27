@@ -4,31 +4,44 @@ const btnAgregar = document.getElementById('btnAgregar');
 const lista = document.getElementById('lista');
 
 // Función para agregar un nuevo <li>
-btnAgregar.addEventListener('click', () => {
+function agregarElemento() {
     const texto = inputTexto.value.trim();
 
-    if (texto !== '') {
-        // Crear un nuevo li
-        const nuevoLi = document.createElement('li');
-        nuevoLi.textContent = texto;
+    if (texto === '') {
+        alert('El campo no puede estar vacío, escribí algo porfa!.');
+        return;
+    }
 
-        // Crear botón eliminar
-        const botonEliminar = document.createElement('button');
-        botonEliminar.textContent = 'Eliminar';
-        botonEliminar.className = 'botonEliminar';
+    // Crear un nuevo li
+    const nuevoLi = document.createElement('li');
+    nuevoLi.textContent = texto;
 
-        // Agregar evento para eliminar el <li> cuando se hace clic en el botón
-        botonEliminar.addEventListener('click', () => {
-            lista.removeChild(nuevoLi);
-        });
+    // Crear botón eliminar
+    const botonEliminar = document.createElement('button');
+    botonEliminar.textContent = 'Eliminar';
+    botonEliminar.className = 'botonEliminar';
 
-        // Agregar el botón al li
-        nuevoLi.appendChild(botonEliminar);
+    // Agregar evento para eliminar el <li> cuando se hace clic en el botón
+    botonEliminar.addEventListener('click', () => {
+        lista.removeChild(nuevoLi);
+    });
 
-        // Agregar el li a la lista
-        lista.appendChild(nuevoLi);
+    // Agregar el botón al li
+    nuevoLi.appendChild(botonEliminar);
 
-        // Limpiar el input
-        inputTexto.value = '';
+    // Agregar el li a la lista
+    lista.appendChild(nuevoLi);
+
+    // Limpiar el input
+    inputTexto.value = '';
+}
+
+// Evento para click en el botón
+btnAgregar.addEventListener('click', agregarElemento);
+
+// Evento para presionar "Enter" en el input
+inputTexto.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        agregarElemento();
     }
 });

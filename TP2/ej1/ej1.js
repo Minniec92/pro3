@@ -13,3 +13,4 @@ const elementosLi = document.querySelectorAll('#contenedor li');
 elementosLi.forEach(li => {
     li.textContent += ' (texto agregado)';
 });
+
