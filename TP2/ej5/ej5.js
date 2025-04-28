@@ -14,7 +14,7 @@ function emailValido(correo) {
 }
 
 
-formulario.addEventListener('submit', (e) => {
+formulario.addEventListener('click', (e) => {
     e.preventDefault(); 
 
     let valido = true;
