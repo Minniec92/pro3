@@ -7,28 +7,28 @@ const errorNombre = document.getElementById('errorNombre');
 const errorEmail = document.getElementById('errorEmail');
 const errorEdad = document.getElementById('errorEdad');
 
+const btnEnviar = document.getElementById('btnEnviar');
 
 function emailValido(correo) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(correo);
 }
 
-
-formulario.addEventListener('click', (e) => {
-    e.preventDefault(); 
-
+btnEnviar.addEventListener('click', () => {
     let valido = true;
 
-    
+    // Limpiar errores anteriores
     errorNombre.textContent = '';
     errorEmail.textContent = '';
     errorEdad.textContent = '';
 
+    // Validar nombre
     if (nombre.value.trim() === '') {
         errorNombre.textContent = 'El nombre es obligatorio.';
         valido = false;
     }
 
+    // Validar email
     if (email.value.trim() === '') {
         errorEmail.textContent = 'No ingresaste el mail.';
         valido = false;
@@ -37,7 +37,7 @@ formulario.addEventListener('click', (e) => {
         valido = false;
     }
 
-
+    // Validar edad
     const edadNumero = parseInt(edad.value);
     if (edad.value.trim() === '') {
         errorEdad.textContent = 'No ingresaste la edad.';
@@ -47,8 +47,9 @@ formulario.addEventListener('click', (e) => {
         valido = false;
     }
 
+    // Si todo es válido
     if (valido) {
-        alert('Formulario enviado correctamente :) ');
+        alert('Formulario enviado correctamente :)');
         formulario.reset();
     }
 });
