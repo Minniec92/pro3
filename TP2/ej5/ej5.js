@@ -17,18 +17,15 @@ function emailValido(correo) {
 btnEnviar.addEventListener('click', () => {
     let valido = true;
 
-    // Limpiar errores anteriores
     errorNombre.textContent = '';
     errorEmail.textContent = '';
     errorEdad.textContent = '';
 
-    // Validar nombre
     if (nombre.value.trim() === '') {
         errorNombre.textContent = 'El nombre es obligatorio.';
         valido = false;
     }
 
-    // Validar email
     if (email.value.trim() === '') {
         errorEmail.textContent = 'No ingresaste el mail.';
         valido = false;
@@ -37,7 +34,6 @@ btnEnviar.addEventListener('click', () => {
         valido = false;
     }
 
-    // Validar edad
     const edadNumero = parseInt(edad.value);
     if (edad.value.trim() === '') {
         errorEdad.textContent = 'No ingresaste la edad.';
@@ -47,7 +43,6 @@ btnEnviar.addEventListener('click', () => {
         valido = false;
     }
 
-    // Si todo es válido
     if (valido) {
         alert('Formulario enviado correctamente :)');
         formulario.reset();
