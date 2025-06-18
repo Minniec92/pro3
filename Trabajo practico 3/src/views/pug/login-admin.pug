@@ -1,0 +1,23 @@
+doctype html
+html(lang="es")
+  head
+    title Login Administrador
+    meta(charset="utf-8")
+    link(rel="stylesheet", href="/css/style.css")
+  body
+    h1 Iniciar sesión como administrador
+
+    .form-nuevo
+      form(action="/admin/login", method="POST")
+        div
+          label(for="email") Email:
+          input(type="email", name="email", required)
+
+        div
+          label(for="password") Contraseña:
+          input(type="password", name="password", required)
+
+        button(type="submit") Ingresar
+
+    .enlaces-form
+      a(href="/") ← Volver al inicio

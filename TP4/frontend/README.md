@@ -1,12 +1,16 @@
-# React + Vite
+Integrantes del grupo:
+Murinigo, Mariano Iván. 
+Castro, Jennifer. 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+Para poder correr la api nos tenemos que asegurar de tener instalado node.js 
+( En caso de no tenerlo hay que descargarlo desde la pagina oficial , https://nodejs.org  y seguis los pasos que te indica)
+Para probar si ya esta instalado en la terminal del vscode debemos escribir " node - v " y dsp "npm -v" para ver la version instalada.. 
+Iniciamos el backend : 
+en la terminal de vscode ingresamos a la carpeta donde tenemos el proyecto , x ej : "cd ..../backend" ( ".... , es la ruta que tiene que seguir)
+una vez que estamos dentro de esa carpeta ejecutamos "npm install" + "npm start" . 
+Esto levanta el servidor del back en el localhost:3001 que es el puerto que configuramos . 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Despues de eso tenemos que levantar tambien el front ( Para esto en el vscode abrimos otra terminal con el "+" que se encuentra a la derecha) 
+Entramos a la carpeta del proyecto con "cd .../frontend" , lo iniciamos con npm install + npm run dev y asi ya levantamos el front. 
+Esto inicia la app de React en http://localhost:5173 q es el puerto x defecto. 
