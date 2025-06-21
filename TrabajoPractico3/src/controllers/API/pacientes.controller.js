@@ -1,11 +1,11 @@
-const { Paciente } = require("../../models/sqlite/entities/paciente.entity.js");
 const jwt = require("jsonwebtoken");
+const PacienteModel = require("../../models/paciente.model.js");
 
 class PacientesController {
   async login(req, res) {
     try {
       const { dni, password } = req.body;
-      const paciente = await Paciente.findOne({ where: { dni } });
+      const paciente = await PacienteModel.buscarPorDni(dni);
 
       if (!paciente || paciente.password !== password) {
         throw new Error("Credenciales inválidas");
@@ -25,7 +25,7 @@ class PacientesController {
   }
 
   async list(req, res) {
-    const pacientes = await Paciente.findAll();
+    const pacientes = await PacienteModel.obtenerTodos();
     res.render("pacientes", {
       pacientes,
       mensaje: req.query.mensaje || null,
@@ -38,13 +38,13 @@ class PacientesController {
     const { dni, nombre, apellido, email, password } = req.body;
 
     try {
-      const existente = await Paciente.findOne({ where: { dni } });
+      const existente = await PacienteModel.buscarPorDni(dni);
 
       if (existente) {
         return res.redirect("/api/v1/pacientes?mensaje=Ya existe un paciente con ese DNI");
       }
 
-      await Paciente.create({ dni, nombre, apellido, email, password });
+      await PacienteModel.crear({ dni, nombre, apellido, email, password });
 
       res.redirect('/login?mensaje=Paciente creado con éxito. Ahora podés iniciar sesión');
     } catch (error) {
@@ -56,7 +56,7 @@ class PacientesController {
     const id = req.params.id;
 
     try {
-      const eliminado = await Paciente.destroy({ where: { id } });
+      const eliminado = await PacienteModel.eliminar(id);
 
       if (!eliminado) {
         return res.status(404).json({ message: `No existe el paciente con id ${id}` });
@@ -73,18 +73,15 @@ class PacientesController {
     const { dni, nombre, apellido, email, password } = req.body;
 
     try {
-      const existente = await Paciente.findOne({ where: { dni } });
+      const existente = await PacienteModel.buscarPorDni(dni);
 
       if (existente && existente.id != id) {
         return res.redirect("/api/v1/pacientes?mensaje=Ya existe otro paciente con ese DNI");
       }
 
-      const actualizado = await Paciente.update(
-        { dni, nombre, apellido, email, password },
-        { where: { id } }
-      );
+      const actualizado = await PacienteModel.actualizar(id, { dni, nombre, apellido, email, password });
 
-      if (actualizado[0] === 0) {
+      if (actualizado === 0) {
         return res.status(404).send("Paciente no encontrado");
       }
 
@@ -105,7 +102,7 @@ class PacientesController {
     const { id } = req.params;
 
     try {
-      const paciente = await Paciente.findByPk(id);
+      const paciente = await PacienteModel.buscarPorId(id);
       if (!paciente) return res.status(404).send("Paciente no encontrado");
 
       res.render("editar-paciente", {

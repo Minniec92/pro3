@@ -1,5 +1,5 @@
-const { Paciente } = require('../models/sqlite/entities/paciente.entity.js');
-const { Turno } = require('../models/sqlite/entities/turno.entity.js');
+const PacienteModel = require('../models/paciente.model.js');
+const TurnoModel = require('../models/turno.model.js');
 
 const renderIndex = (req, res) => {
   res.render('index', {
@@ -9,7 +9,7 @@ const renderIndex = (req, res) => {
 };
 
 const renderListaPacientes = async (req, res) => {
-  const pacientes = await Paciente.findAll();
+  const pacientes = await PacienteModel.obtenerTodos();
   res.render('pacientes', {
     pacientes,
     mensaje: req.query.mensaje || null,
@@ -27,7 +27,7 @@ const renderNuevoPaciente = (req, res) => {
 
 const renderEditarPaciente = async (req, res) => {
   const { id } = req.params;
-  const pacienteDB = await Paciente.findByPk(id);
+  const pacienteDB = await PacienteModel.buscarPorId(id);
   if (!pacienteDB) return res.status(404).send('Paciente no encontrado');
   res.render('editar-paciente', {
     paciente: pacienteDB,
@@ -40,7 +40,7 @@ const renderListaTurnos = async (req, res) => {
     return res.status(401).send('Acceso no autorizado');
   }
 
-  const turnos = await Turno.findAll({ include: { model: Paciente, as: 'paciente' } });
+  const turnos = await TurnoModel.obtenerConPacientes();
 
   res.render('turnos', {
     turnos,
@@ -52,7 +52,7 @@ const renderListaTurnos = async (req, res) => {
 
 const renderNuevoTurno = async (req, res) => {
   const isAdmin = req.cookies.admin === 'true';
-  const pacientes = isAdmin? await Paciente.findAll() : [];
+  const pacientes = isAdmin ? await PacienteModel.obtenerTodos() : [];
 
   res.render('new-turno', {
     pacientes,
@@ -63,7 +63,7 @@ const renderNuevoTurno = async (req, res) => {
 
 const renderEditarTurno = async (req, res) => {
   const { id } = req.params;
-  const turno = await Turno.findByPk(id);
+  const turno = await TurnoModel.buscarPorId(id);
   if (!turno) return res.status(404).send('Turno no encontrado');
   res.render('editar-turno', {
     turno,
@@ -83,10 +83,7 @@ const renderMisTurnos = async (req, res) => {
   const pacienteId = req.paciente.id;
 
   try {
-    const turnos = await Turno.findAll({
-      where: { pacienteId },
-      include: { model: Paciente, as: 'paciente' }
-    });
+    const turnos = await TurnoModel.buscarPorPaciente(pacienteId);
 
     res.render('turnos', {
       turnos,

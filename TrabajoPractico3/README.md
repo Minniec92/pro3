@@ -54,3 +54,4 @@
 
 PD: Para ingresar como usuario admin el mail es "admin@novatech.com" y la contraseña "admin123" 
 
+OBS : EL PACIENTE SOLO PODRÁ SER ELIMINADO CUANDO NO TENGA TURNOS ASIGNADOS. 

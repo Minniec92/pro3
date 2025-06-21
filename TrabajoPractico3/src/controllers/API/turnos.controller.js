@@ -1,12 +1,10 @@
-const { Turno } = require('../../models/sqlite/entities/turno.entity.js');
-const { Paciente } = require('../../models/sqlite/entities/paciente.entity.js');
+const TurnoModel = require("../../models/turno.model.js");
+const PacienteModel = require("../../models/paciente.model.js");
 
 const obtenerPorPaciente = async (req, res) => {
 const { idPaciente } = req.params;
 try {
-const turnos = await Turno.findAll({
-    where: { pacienteId: idPaciente }
-});
+const turnos = await TurnoModel.buscarPorPaciente(idPaciente);
 
 if (turnos.length === 0) {
     return res.status(404).json({ mensaje: 'No hay turnos para este paciente.' });
@@ -21,9 +19,7 @@ res.status(500).json({ mensaje: 'Error al buscar turnos.', error });
 const eliminarTurno = async (req, res) => {
 const { idTurno } = req.params;
 try {
-const eliminado = await Turno.destroy({
-    where: { id: idTurno }
-});
+const eliminado = await TurnoModel.eliminar(idTurno);
 
 if (eliminado === 0) {
     return res.status(404).json({ mensaje: 'No se encontró el turno.' });
@@ -49,15 +45,13 @@ if (req.cookies.admin === 'true') {
 const { fecha, hora } = req.body;
 
 try {
-const turnoExistente = await Turno.findOne({
-    where: { fecha, hora }
-});
+const turnoExistente = await TurnoModel.buscarPorFechaYHora(fecha, hora);
 
 if (turnoExistente) {
     return res.redirect('/api/v1/turnos?mensaje=Ya existe un turno para esa fecha y hora');
 }
 
-await Turno.create({ fecha, hora, pacienteId });
+await TurnoModel.crear({ fecha, hora, pacienteId });
 
 if (req.session?.isAdmin) {
     res.redirect('/api/v1/turnos?mensaje=El turno fue creado correctamente');
@@ -71,12 +65,7 @@ res.status(500).json({ mensaje: 'Error al crear turno.', error });
 
 const renderListaTurnos = async (req, res) => {
 try {
-    const turnos = await Turno.findAll({
-    include: {
-    model: Paciente,
-    as: 'paciente'
-    }
-});
+    const turnos = await TurnoModel.obtenerConPacientes();
 
 console.log('MENSAJE RECIBIDO:', req.query.mensaje);
 res.render('turnos', { turnos, mensaje: req.query.mensaje });
@@ -84,11 +73,12 @@ res.render('turnos', { turnos, mensaje: req.query.mensaje });
 res.status(500).send('Error al cargar los turnos');
 }
 };
+
 const edit = async (req, res) => {
     const { id } = req.params;
 
     try {
-    const turno = await Turno.findByPk(id);
+    const turno = await TurnoModel.buscarPorId(id);
     if (!turno) return res.status(404).send("Turno no encontrado");
 
     res.render("editar-turno", { turno });
@@ -102,12 +92,9 @@ const update = async (req, res) => {
     const { fecha, hora, pacienteId } = req.body;
 
     try {
-    const actualizado = await Turno.update(
-        { fecha, hora, pacienteId },
-        { where: { id: idTurno } }
-    );
+    const actualizado = await TurnoModel.actualizar(idTurno, { fecha, hora, pacienteId });
 
-    if (actualizado[0] === 0) {
+    if (actualizado === 0) {
         return res.status(404).send("Disculpe. Turno no encontrado");
     }
 
