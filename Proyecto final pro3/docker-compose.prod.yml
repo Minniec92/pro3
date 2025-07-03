@@ -1,0 +1,111 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:15-alpine
+    container_name: app_database
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: app_database
+      POSTGRES_USER: app_user
+      POSTGRES_PASSWORD: app_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app_user -d app_database"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile    # Aquí el cambio, antes estaba Dockerfile.prod
+    container_name: app_backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DB_HOST: database
+      DB_PORT: 5432
+      DB_NAME: app_database
+      DB_USER: app_user
+      DB_PASSWORD: app_password
+      JWT_SECRET: jwt_secret_muy_complejo
+      CORS_ORIGIN: https://tudominio.com
+      VIRTUAL_HOST: tudominio.com
+      LETSENCRYPT_HOST: tudominio.com
+      LETSENCRYPT_EMAIL: tuemail@dominio.com
+    ports:
+      - "3001:3001"
+    depends_on:
+      - database
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3001/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: app_frontend
+    restart: unless-stopped
+    environment:
+      VIRTUAL_HOST: tudominio.com
+      LETSENCRYPT_HOST: tudominio.com
+      LETSENCRYPT_EMAIL: tuemail@dominio.com
+    expose:
+      - "80"
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy:latest
+    container_name: nginx-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+      - ./nginx/vhost.d:/etc/nginx/vhost.d
+      - ./nginx/html:/usr/share/nginx/html
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - app_network
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: letsencrypt-nginx-proxy-companion
+    restart: unless-stopped
+    depends_on:
+      - nginx-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./nginx/certs:/etc/nginx/certs
+      - ./nginx/vhost.d:/etc/nginx/vhost.d
+      - ./nginx/html:/usr/share/nginx/html
+    networks:
+      - app_network
+
+volumes:
+  postgres_data:
+
+networks:
+  app_network:
+    driver: bridge

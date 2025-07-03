@@ -1,0 +1,31 @@
+# frontend/Dockerfile.prod
+
+# Stage 1: Build
+FROM node:18-alpine as build
+
+WORKDIR /app
+
+# Copiar package.json y package-lock.json para instalar dependencias
+COPY package*.json ./
+
+RUN npm install
+
+# Copiar código fuente y generar build de producción
+COPY . .
+
+RUN npm run build
+
+# Stage 2: Serve with nginx
+FROM nginx:stable-alpine
+
+# Copiar el build generado desde la etapa anterior a la carpeta de nginx
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Copiar configuración personalizada de nginx si la tienes
+# COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+
+# Exponer el puerto 80 para servir contenido
+EXPOSE 80
+
+# Comando por defecto para iniciar nginx en primer plano
+CMD ["nginx", "-g", "daemon off;"]

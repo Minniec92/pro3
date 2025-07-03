@@ -1,0 +1,29 @@
+FROM node:18-alpine
+
+LABEL maintainer="tu-email@dominio.com"
+LABEL description="Frontend React app - Development"
+
+WORKDIR /app
+
+# Instalar herramientas útiles para desarrollo
+RUN apk add --no-cache git bash curl
+
+# Copiar package.json para cachear instalación
+COPY package*.json ./
+
+# Instalar dependencias (dev y prod)
+RUN npm install
+
+# Copiar código fuente
+COPY . .
+
+# Variables para hot reload en React
+ENV CHOKIDAR_USEPOLLING=true
+ENV WATCHPACK_POLLING=true
+ENV FAST_REFRESH=true
+
+# Exponer puerto 3000
+EXPOSE 3000
+
+# Comando para iniciar React con hot reload
+CMD ["npm", "start"]
