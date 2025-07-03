@@ -1,0 +1,59 @@
+doctype html
+html(lang="es")
+  head
+    title Nuevo Turno
+    meta(charset="utf-8")
+    link(rel="stylesheet", href="/css/style.css")
+  body
+    include ./components/navbar.pug
+
+    h1 Crear nuevo turno
+
+    .form-nuevo
+      form(action="/api/v1/turnos", method="POST")
+        div
+          label(for="pacienteId") Paciente:
+
+          if paciente
+            input(type="hidden", name="pacienteId", value=paciente.id)
+            p #{paciente.nombre} #{paciente.apellido} (DNI: #{paciente.dni})
+          else if pacientes
+            select(name="pacienteId", required)
+              option(value="") -- Seleccionar paciente --
+              each paciente in pacientes
+                option(value=paciente.id)= paciente.nombre + ' ' + paciente.apellido + ' (DNI: ' + paciente.dni + ')'
+
+        div
+          label(for="fecha") Fecha:
+          input(type="date", name="fecha", required)
+
+        div
+          label(for="hora") Hora:
+          select(name="hora", required)
+            option(value="08:00") 08:00
+            option(value="08:30") 08:30
+            option(value="09:00") 09:00
+            option(value="09:30") 09:30
+            option(value="10:00") 10:00
+            option(value="10:30") 10:30
+            option(value="11:00") 11:00
+            option(value="11:30") 11:30
+            option(value="12:00") 12:00
+            option(value="12:30") 12:30
+            option(value="13:00") 13:00
+            option(value="13:30") 13:30
+            option(value="14:00") 14:00
+            option(value="14:30") 14:30
+            option(value="15:00") 15:00
+            option(value="15:30") 15:30
+            option(value="16:00") 16:00
+            option(value="16:30") 16:30
+            option(value="17:00") 17:00
+
+        button(type="submit") Guardar turno
+
+    .enlaces-form
+      if !paciente
+        a(href="/api/v1/pacientes/nuevo") Agregar nuevo paciente
+        a(href="/api/v1/turnos") ← Volver a la lista
+      a(href="/") Volver al inicio

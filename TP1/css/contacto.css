@@ -1,0 +1,51 @@
+#contacto h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Estilos generales del formulario ya están en style.css,
+   acá vamos a personalizar un poco más */
+
+form label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+form p {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+form input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Botones */
+.botones {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.botones button {
+    flex: 1;
+}

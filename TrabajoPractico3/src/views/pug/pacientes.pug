@@ -1,0 +1,42 @@
+doctype html
+html(lang="es")
+  head
+    title Pacientes Registrados
+    meta(charset="utf-8")
+    link(rel="stylesheet", href="/css/style.css")
+  body
+    include ./components/navbar.pug
+    h1 Pacientes Registrados
+
+    if mensaje
+      p(class="success")= mensaje
+
+  div(class="acciones-links")
+    a(href="/api/v1/pacientes/nuevo") Agregar nuevo paciente
+    br
+    a(href="/") Volver al inicio
+
+    hr
+
+    if pacientes.length === 0
+      p No hay pacientes registrados.
+    else
+      table(border="1", cellpadding="8")
+        thead
+          tr
+            th DNI
+            th Nombre
+            th Apellido
+            th Email
+            th Acciones
+        tbody
+          each paciente in pacientes
+            tr
+              td= paciente.dni
+              td= paciente.nombre
+              td= paciente.apellido
+              td= paciente.email
+              td
+                a.boton(href=`/api/v1/pacientes/${paciente.id}/editar`, class="btn") Editar
+                form(action=`/api/v1/pacientes/${paciente.id}?_method=DELETE`, method="POST", style="display:inline")
+                  button.boton(type="submit", class="btn") Eliminar

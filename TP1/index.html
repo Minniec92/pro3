@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNova Solutions</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/servicios.css">
+    <link rel="stylesheet" href="css/galeria.css">
+    <link rel="stylesheet" href="css/contacto.css">
+
+    <!-- Iconos (ejemplo: FontAwesome) -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <!-- HEADER CON NAVBAR -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#galeria">Galería</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- SECCIÓN HOME -->
+    <section id="home">
+        <div class="portada">
+            <!-- Puede ser imagen o video -->
+            <img src="img/portada.png" alt="Portada TechNova">
+            <!-- O: <video src="img/portada.mp4" autoplay muted loop></video> -->
+        </div>
+        <div class="bienvenida">
+            <h1>Bienvenido a TechNova Solutions</h1>
+            <p>Nuestra misión es impulsar la innovación con soluciones tecnológicas únicas y disruptivas.</p>
+        </div>
+    </section>
+    
+
+        <!-- SECCIÓN SERVICIOS -->
+        <section id="servicios">
+            <h2>Nuestros Servicios</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <img src="img/servicio1.jpg" alt="Servicio 1">
+                    <h3>Desarrollo Web</h3>
+                    <p>Creación de sitios web modernos, rápidos y responsivos.</p>
+                    <button>Más info</button>
+                </div>
+                <div class="card">
+                    <img src="img/servicio2.jpg" alt="Servicio 2">
+                    <h3>Apps Móviles</h3>
+                    <p>Diseño y desarrollo de aplicaciones para Android e iOS.</p>
+                    <button>Más info</button>
+                </div>
+                <div class="card">
+                    <img src="img/servicio3.jpg" alt="Servicio 3">
+                    <h3>Tienda Online</h3>
+                    <p>Creamos tu tienda para que puedas vender tus productos.</p>
+                    <button>Más info</button>
+                </div>
+                <div class="card">
+                    <img src="img/servicio4.jpg" alt="Servicio 4">
+                    <h3>Inteligencia Artificial</h3>
+                    <p>Con arduino hacemos tu vida más fácil.</p>
+                    <button>Más info</button>
+                </div>
+                <div class="card">
+                    <img src="img/servicio5.jpg" alt="Servicio 5">
+                    <h3>Actualización de SO</h3>
+                    <p>Mejoramos tu compu a lo último y más completo del mercado.</p>
+                    <button>Más info</button>
+                </div>
+                <div class="card">
+                    <img src="img/servicio6.jpg" alt="Servicio 6">
+                    <h3>Servicios en la nube</h3>
+                    <p>Subimos y guardamos tus archivos para que puedas acceder desde donde estes.</p>
+                    <button>Más info</button>
+                </div>
+            </div>
+        </section>
+        
+
+        <!-- SECCIÓN GALERÍA -->
+        <section id="galeria">
+            <h2>Nuestra Galería</h2>
+            <div class="galeria-grid">
+                <img src="img/imagen 1.png" alt="Imagen 1">
+                <img src="img/imagen 2.png" alt="Imagen 2">
+                <img src="img/imagen 3.png" alt="Imagen 3">
+                <img src="img/imagen 4.png" alt="Imagen 4">
+                <img src="img/imagen 5.jpg" alt="Imagen 5">
+                <img src="img/imagen 6.jpg" alt="Imagen 6">
+                <img src="img/imagen 7.jpg" alt="Imagen 7">
+            </div>
+        </section>
+        
+
+        <!-- SECCIÓN CONTACTO -->
+        <section id="contacto">
+            <h2>Contacto</h2>
+            <form>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre">
+        
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+        
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono">
+        
+                <label for="comentarios">Comentarios:</label>
+                <textarea id="comentarios" name="comentarios"></textarea>
+        
+                <label for="motivo">Motivo del contacto:</label>
+                <select id="motivo" name="motivo">
+                    <option value="">Seleccione una opción</option>
+                    <option value="proyecto">Nuevo Proyecto</option>
+                    <option value="consulta">Consulta</option>
+                    <option value="otro">Otro</option>
+                </select>
+        
+                <p>¿Desea recibir novedades?</p>
+                <label><input type="radio" name="novedades" value="si"> Sí</label>
+                <label><input type="radio" name="novedades" value="no"> No</label>
+        
+                <div class="botones">
+                    <button type="submit">Enviar</button>
+                    <button type="reset">Resetear</button>
+                </div>
+            </form>
+        </section>
+        
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 TechNova Solutions</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+
+</body>
+</html>

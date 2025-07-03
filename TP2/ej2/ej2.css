@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+#inputTexto {
+    padding: 8px;
+    margin-right: 10px;
+}
+
+#btnAgregar {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+li {
+    margin-top: 10px;
+    list-style-type: none;
+    padding: 8px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+.botonEliminar {
+    margin-left: 15px;
+    padding: 4px 8px;
+    background-color: red;
+    color: rgb(7, 0, 0);
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}

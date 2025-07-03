@@ -1,0 +1,23 @@
+doctype html
+html(lang="es")
+  head
+    title Iniciar sesión
+    meta(charset="utf-8")
+    link(rel="stylesheet", href="/css/style.css")
+  body
+    h1 Iniciar sesión como paciente
+
+    .form-nuevo       
+      form(action="/api/v1/pacientes/login", method="POST")
+        div
+          label(for="dni") DNI:
+          input(type="text", name="dni", required)
+
+        div
+          label(for="password") Contraseña:
+          input(type="password", name="password", required)
+
+          button(type="submit") Iniciar sesión
+
+    br
+    a(href="/") ← Volver al inicio

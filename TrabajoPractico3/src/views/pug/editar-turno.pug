@@ -1,0 +1,43 @@
+doctype html
+html(lang="es")
+  head
+    title Editar Turno
+    link(rel="stylesheet", href="/css/styles.css")
+  body
+    include ./components/navbar.pug
+    h1 Editar Turno
+
+    form(action=`/api/v1/turnos/${turno.id}?_method=PUT`, method="POST")
+      label(for="fecha") Fecha:
+      input(type="date", name="fecha", id="fecha", value=turno.fecha required)
+      br
+
+      label(for="hora") Hora:
+      select(name="hora", id="hora", required)
+        option(value="08:00", selected=turno.hora === '08:00') 08:00
+        option(value="08:30", selected=turno.hora === '08:30') 08:30
+        option(value="09:00", selected=turno.hora === '09:00') 09:00
+        option(value="09:30", selected=turno.hora === '09:30') 09:30
+        option(value="10:00", selected=turno.hora === '10:00') 10:00
+        option(value="10:30", selected=turno.hora === '10:30') 10:30
+        option(value="11:00", selected=turno.hora === '11:00') 11:00
+        option(value="11:30", selected=turno.hora === '11:30') 11:30
+        option(value="12:00", selected=turno.hora === '12:00') 12:00
+        option(value="12:30", selected=turno.hora === '12:30') 12:30
+        option(value="13:00", selected=turno.hora === '13:00') 13:00
+        option(value="13:30", selected=turno.hora === '13:30') 13:30
+        option(value="14:00", selected=turno.hora === '14:00') 14:00
+        option(value="14:30", selected=turno.hora === '14:30') 14:30
+        option(value="15:00", selected=turno.hora === '15:00') 15:00
+        option(value="15:30", selected=turno.hora === '15:30') 15:30
+        option(value="16:00", selected=turno.hora === '16:00') 16:00
+        option(value="16:30", selected=turno.hora === '16:30') 16:30
+        option(value="17:00", selected=turno.hora === '17:00') 17:00
+      br
+
+      label(for="pacienteId") ID del paciente:
+      input(type="number", name="pacienteId", id="pacienteId", value=turno.pacienteId required)
+      br
+
+      button(type="submit") Guardar Cambios
+      a(href="/api/v1/turnos") Cancelar

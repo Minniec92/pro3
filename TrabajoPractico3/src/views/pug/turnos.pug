@@ -1,0 +1,52 @@
+doctype html
+html(lang="es")
+  head
+    title Turnos registrados
+    meta(charset="utf-8")
+    link(rel="stylesheet", href="/css/style.css")
+  body
+    include ./components/navbar.pug
+    if paciente
+      div(style="text-align: right; margin-bottom: 15px; margin-right: 20px")
+        a(href="/logout", style="color: red; font-weight: bold") [Cerrar sesión]
+
+    h1 Turnos registrados
+
+    if mensaje
+      p(class="success")= mensaje
+
+    div(class="acciones-links")
+      a(href="/api/v1/turnos/nuevo") Crear nuevo turno
+      br
+      a(href="/api/v1/pacientes/nuevo") Agregar nuevo paciente
+
+    hr
+
+    if turnos.length === 0
+      p No hay turnos registrados.
+    else
+      table(border="1", cellpadding="8")
+        thead
+          tr
+            th Paciente
+            th Fecha
+            th Hora
+            th Motivo
+            th Acciones
+        tbody
+          each turno in turnos
+            tr
+              td= turno.paciente.nombre
+              td= turno.fecha
+              td= turno.hora
+              td= turno.motivo || ''
+              td
+                a.boton(href=`/api/v1/turnos/editar/${turno.id}`, class="btn") Editar
+                form(method="POST", action=`/api/v1/turnos/${turno.id}?_method=DELETE`, style="display:inline")
+                  button.boton(type="submit", class="btn") Cancelar
+
+    footer
+      p © #{new Date().getFullYear()} Clínica NovaTech
+      div(style="margin-top: 20px; text-align: center")
+        a(href="/") Volver al inicio | 
+        a(href="/api/v1/turnos/nuevo") Crear nuevo turno

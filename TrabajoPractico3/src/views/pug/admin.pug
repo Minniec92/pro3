@@ -1,0 +1,25 @@
+doctype html
+html(lang="es")
+  head
+    title Panel de Administración
+    meta(charset="utf-8")
+    link(rel="stylesheet", href="/css/style.css")
+
+  body
+    include ./components/navbar.pug
+
+    .admin-container
+      h1 Panel del Administrador
+      p.admin-subtitle Bienvenido, administrador. Desde aquí puedes acceder a toda la información.
+
+      ul.admin-links
+        li
+          a(href="/api/v1/pacientes") Ver todos los pacientes
+        li
+          a(href="/api/v1/turnos") Ver todos los turnos
+        li
+          a(href="/api/v1/pacientes/nuevo") Registrar un nuevo paciente
+        li 
+          a(href="/api/v1/turnos/nuevo") Crear un nuevo turno  
+        li  
+          a(href="/") Volver al inicio

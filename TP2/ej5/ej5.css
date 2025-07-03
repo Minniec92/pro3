@@ -1,0 +1,25 @@
+body {
+    font-family: Sans, sans-serif;
+    padding: 20px;
+}
+
+form {
+    max-width: 400px;
+    background-color: beige;
+}
+
+.campo {
+    margin-bottom: 14px;
+}
+
+.error {
+    color: red;
+    font-size: 25px;
+    display: block;
+    margin-top: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+}

@@ -1,0 +1,12 @@
+.resaltado {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+.oculto {
+    display: none;
+}
+
+.parrafo {
+    margin-bottom: 10px;
+}

@@ -1,0 +1,11 @@
+nav(style="text-align: center; margin-bottom: 20px")
+  if paciente && paciente.nombre && paciente.apellido
+    span Sesión iniciada como #{paciente.nombre} #{paciente.apellido}
+    |  
+    a(href="/logout", style="color: red; font-weight: bold") [Cerrar sesión]
+  else if admin
+    span Administrador logueado
+    |  
+    a(href="/logout", style="color: red; font-weight: bold") [Cerrar sesión]
+  else
+    a.boton(href="/login", style="font-weight: bold") Iniciar sesión

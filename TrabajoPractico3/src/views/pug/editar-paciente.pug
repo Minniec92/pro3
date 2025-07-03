@@ -1,0 +1,24 @@
+doctype html
+html(lang="es")
+head
+title Editar Paciente
+body
+    include ./components/navbar.pug
+    h1 Editar Paciente
+
+
+form(action=`/api/v1/pacientes/${paciente.id}?_method=PUT` method="POST")
+    label(for="nombre") Nombre:
+    input(type="text", name="nombre", id="nombre", value=paciente.nombre required)
+    br
+
+    label(for="apellido") Apellido:
+    input(type="text", name="apellido", id="apellido", value=paciente.apellido required)
+    br
+
+    label(for="dni") DNI:
+    input(type="text", name="dni", id="dni", value=paciente.dni required)
+    br
+
+    button(type="submit") Guardar Cambios
+    a(href="/pacientes") Cancelar
